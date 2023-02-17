@@ -1,4 +1,4 @@
-const Pool = Require("pg").Pool;
+const Pool = require("pg").Pool;
 
 const pool = new Pool({
 	host: "51.195.44.176",
