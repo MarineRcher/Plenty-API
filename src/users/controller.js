@@ -37,14 +37,33 @@ const getUsersById = (req, res) => {
 
 const removeUsers = (req, res) => {
 	const id = parseInt(req.params.id); 
-	pool.query(queries.removeUsers,[id], (error, results) => {
+
+	pool.query(queries.getUsersById, [id], (error, results) => {
 		const noUserFound = !results.rows.length;
 		if (noUserFound) {
 			res.send("L'User n'existe pas dans la base de donnée");
 		}
+
 		pool.query(queries.removeUsers, [id], (error, results) => {
 			if (error) throw error;
 				res.status(200).send("User Supprimé avec succès");
+		});
+	});
+};
+
+const updateUser = (req, res) => {
+	const id = parseInt(req.params.id);
+	const { password } = req.body;
+
+	pool.query(queries.getUsersById, [id], (error, results) => {
+		const noUserFound = !results.rows.length;
+		if (noUserFound) {
+			res.send("L'User n'existe pas dans la base de donnée");
+		}
+
+		pool.query(queries.updateUser, [password, id], (error, results) => {
+			if (error) throw error;
+			res.status(200).send("Mot de passe modifié avec succès");
 		});
 	});
 };
@@ -54,4 +73,5 @@ module.exports = {
 	addUsers, 
 	getUsersById,
 	removeUsers,
+	updateUser,
 };
