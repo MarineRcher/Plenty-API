@@ -30,8 +30,37 @@ const addProduct = (req, res) => {
     })
 }
 
+//permet de modifier un produit
+const editProduct = (req, res) => {
+    const id = parseInt(req.params.id)
+    const { name, price, store, image, tag } = req.body
+
+    pool.query(queries.editProduct, [id, name, image, price, store, tag], (err, result) => {
+        if (err) throw err
+        console.log("product edited")
+        res.status(201).send(result)
+    })
+}
+
+//permet de supprimer un produit
+const deleteProduct = (req, res) => {
+    const id = parseInt(req.params.id);
+    pool.query(queries.deleteProduct, [id], (error, results) => {
+        const noProdFound = !results.rows.length;
+        if (noProdFound) {
+            res.send("L'User n'existe pas dans la base de donnée");
+        }
+        pool.query(queries.deleteProduct, [id], (error, results) => {
+            if (error) throw error;
+            res.status(200).send("User Supprimé avec succès");
+        });
+    });
+}
+
 module.exports = {
     getProducts,
     getProductByName,
-    addProduct
+    addProduct,
+    editProduct,
+    deleteProduct
 }
