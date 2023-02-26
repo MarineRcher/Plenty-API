@@ -10,6 +10,7 @@ router.get("/:name", controller.getProductByName)
 router.post("/", controller.addProduct)
 //PUT
 router.put("/:id", controller.editProduct)
+router.put("/report/:id", controller.addReport)
 //DELETE
 router.delete("/:id", controller.deleteProduct)
 
