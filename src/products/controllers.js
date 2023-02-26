@@ -15,7 +15,7 @@ const getProductByName = (req, res) => {
     const name = req.params.name
     pool.query(queries.getProductByName, [name], (err, result) => {
         if (err) throw err;
-        res.status(200).json(result.name)
+        res.status(200).json(result.rows)
     })
 }
 
