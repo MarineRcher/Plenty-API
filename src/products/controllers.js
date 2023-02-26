@@ -42,6 +42,16 @@ const editProduct = (req, res) => {
     })
 }
 
+//permet d'ajouter un avertissement sur le produit afin de l'effacer au bout d'un certain nombre
+const addReport = (req, res) => {
+    const id = parseInt(req.params.id)
+
+    pool.query(queries.addReport, [id], (err, result) => {
+        if (err) throw err
+        res.status(201).send(result)
+    })
+}
+
 //permet de supprimer un produit
 const deleteProduct = (req, res) => {
     const id = parseInt(req.params.id);
@@ -62,5 +72,6 @@ module.exports = {
     getProductByName,
     addProduct,
     editProduct,
+    addReport,
     deleteProduct
 }
