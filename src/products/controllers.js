@@ -56,14 +56,8 @@ const addReport = (req, res) => {
 const deleteProduct = (req, res) => {
     const id = parseInt(req.params.id);
     pool.query(queries.deleteProduct, [id], (error, results) => {
-        const noProdFound = !results.rows.length;
-        if (noProdFound) {
-            res.send("L'User n'existe pas dans la base de donnée");
-        }
-        pool.query(queries.deleteProduct, [id], (error, results) => {
-            if (error) throw error;
-            res.status(200).send("User Supprimé avec succès");
-        });
+        if (err) throw err
+        res.send("Le produit a été supprimé");
     });
 }
 
