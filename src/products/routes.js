@@ -5,7 +5,7 @@ const router = Router()
 
 //GET
 router.get("/", controller.getProducts)
-router.get("/:name", controller.getProductByName)
+router.get("/search/:name", controller.getProductByName)
 //POST
 router.post("/", controller.addProduct)
 //PUT
